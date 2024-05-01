@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storeroom - Sell/Rent Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Reset and Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to top, #09203f 0%, #537895 100%);
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        nav ul li a i {
+            margin-right: 5px;
+        }
+
+        nav ul li a:hover {
+            background: #536dfe;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        section ol {
+            list-style: none;
+            counter-reset: section-counter;
+        }
+
+        section ol li {
+            counter-increment: section-counter;
+            margin-bottom: 15px;
+        }
+
+        section ol li::before {
+            content: counter(section-counter);
+            background: #536dfe;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 8px;
+            margin-right: 10px;
+        }
+
+        section form label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        section form input[type="text"],
+        section form textarea,
+        section form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        section form button[type="submit"] {
+            background: #536dfe;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        section form button[type="submit"]:hover {
+            background: #3f51b5;
+        }
+
+        footer {
+           background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        footer ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        footer ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer ul li a:hover {
+            color: #536dfe;
+        }
+
+        .location-container {
+            position: relative;
+        }
+
+        .location-container input[type="text"] {
+            padding-right: 40px; /* Adjust as needed */
+        }
+
+        .location-container a {
+            position: absolute;
+            right: 15px; /* Adjust as needed */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #536dfe;
+            transition: color 0.3s ease;
+        }
+
+        .location-container a:hover {
+            color: #3f51b5;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to Storeroom</h1>
+            <p>Find new homes for your unused items!</p>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="#post"><i class="fas fa-plus"></i>Post a Product</a></li>
+                    <li><a href="#"><i class="fas fa-search"></i>Browse Products</a></li>
+                    <li><a href="#login"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                    <li><a href="#signup"><i class="fas fa-user-plus"></i>Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container fade-in">
+            <h2>About Storeroom</h2>
+            <p>Storeroom is a platform where you can sell or rent your unused items. Simply fill out the form below to get started!</p>
+        </div>
+    </section>
+
+    <section id="post">
+    <div class="container fade-in">
+        <h2>Post a Product</h2>
+        <form id="product-form" action="/api/products" method="POST" enctype="multipart/form-data">
+            <label for="user-name"><i class="fas fa-user"></i>Your Name:</label>
+            <input type="text" id="user-name" name="userName" required><br><br>
+            <label for="user-mobile"><i class="fas fa-phone"></i>Your Mobile:</label>
+            <input type="text" id="user-mobile" name="userMobile" required><br><br>
+            <label for="user-email"><i class="fas fa-envelope"></i>Your Email:</label>
+            <input type="email" id="user-email" name="userEmail" required><br><br>
+            <label for="product-name"><i class="fas fa-tag"></i>Product Name:</label>
+            <input type="text" id="product-name" name="productName" required><br><br>
+            <label for="product-description"><i class="fas fa-file-alt"></i>Product Description:</label><br>
+            <textarea id="product-description" name="productDescription" rows="4" cols="50" required></textarea><br><br>
+            <label for="product-category"><i class="fas fa-list"></i>Category:</label>
+            <select id="product-category" name="productCategory" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Clothing">Clothing</option>
+                <!-- Add more categories as needed -->
+            </select><br><br>
+            <label for="product-location"><i class="fas fa-map-marker-alt"></i>Location:</label>
+            <div class="location-container">
+                <input type="text" id="product-location" name="productLocation" required>
+                <!-- Location icon using Font Awesome -->
+                <a id="location-link" target="_blank" href="#"><i class="fas fa-map-marker-alt"></i></a>
+            </div><br><br>
+            <label for="product-brand"><i class="fas fa-gem"></i>Brand:</label>
+            <input type="text" id="product-brand" name="productBrand"><br><br>
+            <label for="product-model"><i class="fas fa-cube"></i>Model:</label>
+            <input type="text" id="product-model" name="productModel"><br><br>
+            <label for="product-color"><i class="fas fa-paint-brush"></i>Color:</label>
+            <input type="text" id="product-color" name="productColor"><br><br>
+            <label for="price-type"><i class="fas fa-dollar-sign"></i>Price Type:</label>
+            <select id="price-type" name="priceType" required>
+                <option value="" disabled selected>Select Price Type</option>
+                <option value="fixed">Fixed Price</option>
+                <option value="negotiable">Negotiable Price</option>
+            </select><br><br>
+            <label for="sale-rent"><i class="fas fa-handshake"></i>Sale/Rent:</label>
+            <select id="sale-rent" name="saleRent" required>
+                <option value="" disabled selected>Select Option</option>
+                <option value="sale">For Sale</option>
+                <option value="rent">For Rent</option>
+            </select><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</section>
+
+
+
+    <footer>
+        <div class="container fade-in">
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+<li>@2024 Design And Build By G.Thangella<lip>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if( target.length ) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                }
+            });
+
+            // Update location link when location input changes
+            $('#product-location').on('input', function () {
+                let location = $(this).val();
+                let mapLink = generateMapLink(location);
+                $('#location-link').attr('href', mapLink);
+            });
+        });
+
+        // Function to generate Google Maps link
+        function generateMapLink(location) {
+            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+        }
+
+        document.getElementById('product-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+         let productName = document.getElementById('product-name').value;
+let productDescription = document.getElementById('product-description').value;
+let productCategory = document.getElementById('product-category').value;
+let productLocation = document.getElementById('product-location').value;
+let productBrand = document.getElementById('product-brand').value; // Added
+let productModel = document.getElementById('product-model').value; // Added
+let productColor = document.getElementById('product-color').value; // Added
+let priceType = document.getElementById('price-type').value; // Added
+let saleRent = document.getElementById('sale-rent').value; // Added
+let userName = document.getElementById('user-name').value;
+let userEmail = document.getElementById('user-email').value;
+let userMobile = document.getElementById('user-mobile').value;
+
+            if (productName.trim() === '' || productDescription.trim() === '') {
+                alert('Please fill in all fields.');
+            } else if (productCategory === '') {
+                alert('Please select a category.');
+            } else if (productLocation.trim() === '') {
+                alert('Please enter a location.');
+            } else {
+                // Compose email content
+                let emailContent = `Product Name: ${productName}\n`;
+emailContent += `Product Description: ${productDescription}\n`;
+emailContent += `Category: ${productCategory}\n`;
+emailContent += `Location: ${productLocation}\n`;
+emailContent += `Brand: ${productBrand}\n`; // Added
+emailContent += `Model: ${productModel}\n`; // Added
+emailContent += `Color: ${productColor}\n`; // Added
+emailContent += `Price Type: ${priceType}\n`; // Added
+emailContent += `Sale/Rent: ${saleRent}\n`; // Added
+emailContent += `User Name: ${userName}\n`;
+emailContent += `User Email: ${userEmail}\n`;
+emailContent += `User Mobile: ${userMobile}`;
+
+                // Compose email
+                let emailSubject = 'New Product Submission';
+                let emailTo = 'imgtk17@gmail.com';
+
+                // Format email content
+                let mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailContent)}`;
+                window.location.href = mailtoLink;
+                
+                alert('Product submitted successfully!');
+                document.getElementById('product-form').reset(); // Reset the form after submission
+            }
+        });
+    </script>
+</body>
+</html>
